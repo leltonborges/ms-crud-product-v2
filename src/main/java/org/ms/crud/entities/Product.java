@@ -22,7 +22,7 @@ public class Product implements Serializable {
     @Column(nullable = false, length = 255)
     private String name;
     @Column(nullable = false, length = 10)
-    private Integer estoque;
+    private Integer stock;
     @Column(nullable = false, length = 10)
     private BigDecimal price;
 }

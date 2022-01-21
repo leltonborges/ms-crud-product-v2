@@ -1,8 +1,7 @@
 package org.ms.crud.services;
 
 import org.modelmapper.ModelMapper;
-import org.ms.crud.dto.ProductDTOReturn;
-import org.ms.crud.dto.ProductDto;
+import org.ms.crud.dto.ProductDTO;
 import org.ms.crud.entities.Product;
 import org.ms.crud.repositories.ProductRepository;
 import org.ms.crud.services.exceptions.ProductNotFoundException;
@@ -32,36 +31,36 @@ public class ProductService {
         return productRepository.saveAll(entities);
     }
 
-    public ProductDTOReturn save(ProductDto entity) {
+    public ProductDTO save(ProductDTO entity) {
         Product product = productRepository.save(fromProduct(entity));
-        return fromProductDTOReturn(product);
+        return fromProductDTO(product);
     }
 
-    public Optional<ProductDTOReturn> findById(Long id) {
+    public ProductDTO findById(Long id) {
         Optional<Product> product = productRepository.findById(id);
-        ProductDTOReturn productDTOReturn = fromProductDTOReturn(product
+        ProductDTO productDTOReturn = fromProductDTO(product
                 .orElseThrow(() -> new ProductNotFoundException("Not found id: " + id)));
-        return Optional.of(productDTOReturn);
+        return productDTOReturn;
     }
 
     public List<Product> findAll(Sort sort) {
         return productRepository.findAll(sort);
     }
 
-    public Page<ProductDTOReturn> findAll(Pageable pageable) {
+    public Page<ProductDTO> findAll(Pageable pageable) {
         Page<Product> products = productRepository.findAll(pageable);
-        return products.map(this::fromProductDTOReturn);
+        return products.map(this::fromProductDTO);
     }
 
     public <S extends Product> boolean exists(Example<S> example) {
         return productRepository.exists(example);
     }
 
-    protected Product fromProduct(ProductDto productDto){
+    protected Product fromProduct(ProductDTO productDto){
         return mapper.map(productDto, Product.class);
     }
 
-    protected ProductDTOReturn fromProductDTOReturn(Product product){
-        return  mapper.map(product, ProductDTOReturn.class);
+    protected ProductDTO fromProductDTO(Product product){
+        return  mapper.map(product, ProductDTO.class);
     }
 }
