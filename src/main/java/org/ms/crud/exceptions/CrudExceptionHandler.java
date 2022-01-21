@@ -15,7 +15,7 @@ public class CrudExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(ProductNotFoundException.class)
     public final ResponseEntity<StandarError> handlerBadRequestException(ProductNotFoundException ex, HttpServletRequest request){
         StandarError err =
-                new StandarError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST,
+                new StandarError(System.currentTimeMillis(), HttpStatus.NOT_FOUND,
                         "Not Found", ex.getMessage(), request.getRequestURI());
 
         return ResponseEntity
