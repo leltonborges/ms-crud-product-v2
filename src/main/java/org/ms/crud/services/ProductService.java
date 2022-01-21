@@ -1,7 +1,7 @@
 package org.ms.crud.services;
 
 import org.modelmapper.ModelMapper;
-import org.ms.crud.dto.ProductDTO;
+import org.ms.crud.dtos.ProductDTO;
 import org.ms.crud.entities.Product;
 import org.ms.crud.repositories.ProductRepository;
 import org.ms.crud.services.exceptions.ProductNotFoundException;
@@ -50,6 +50,14 @@ public class ProductService {
     public Page<ProductDTO> findAll(Pageable pageable) {
         Page<Product> products = productRepository.findAll(pageable);
         return products.map(this::fromProductDTO);
+    }
+
+    public void deleteById(Long id) {
+        productRepository.deleteById(id);
+    }
+
+    public void delete(ProductDTO entity) {
+        productRepository.delete(fromProduct(entity));
     }
 
     public <S extends Product> boolean exists(Example<S> example) {

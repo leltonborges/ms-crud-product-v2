@@ -1,4 +1,4 @@
-package org.ms.crud.dto;
+package org.ms.crud.dtos;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

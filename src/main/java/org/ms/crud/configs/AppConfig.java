@@ -1,4 +1,4 @@
-package org.ms.crud.config;
+package org.ms.crud.configs;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -9,7 +9,6 @@ import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.data.web.PagedResourcesAssemblerArgumentResolver;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
-import org.springframework.web.util.UriComponents;
 
 import java.util.List;
 

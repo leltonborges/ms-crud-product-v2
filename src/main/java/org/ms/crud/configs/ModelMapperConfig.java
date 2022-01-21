@@ -1,7 +1,7 @@
-package org.ms.crud.config;
+package org.ms.crud.configs;
 
 import org.modelmapper.ModelMapper;
-import org.ms.crud.dto.ProductDTO;
+import org.ms.crud.dtos.ProductDTO;
 import org.ms.crud.entities.Product;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

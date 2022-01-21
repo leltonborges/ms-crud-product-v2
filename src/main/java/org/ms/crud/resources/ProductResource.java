@@ -1,7 +1,7 @@
 package org.ms.crud.resources;
 
 import org.modelmapper.ModelMapper;
-import org.ms.crud.dto.ProductDTO;
+import org.ms.crud.dtos.ProductDTO;
 import org.ms.crud.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,8 +13,6 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -29,8 +27,6 @@ public class ProductResource {
     private PagedResourcesAssembler<ProductDTO> assembler;
     @Autowired
     private ModelMapper mapper;
-
-
 
     @RequestMapping(method = RequestMethod.GET,
             value = "/{id}",
@@ -62,5 +58,43 @@ public class ProductResource {
                                 .withSelfRel()));
         PagedModel<EntityModel<ProductDTO>> pagedModel = assembler.toModel(all);
         return ResponseEntity.ok(pagedModel);
+    }
+
+    @RequestMapping(
+            method = RequestMethod.POST,
+            produces = {"application/json", "application/xml", "application/x-yaml"},
+            consumes = {"application/json", "application/xml", "application/x-yaml"}
+    )
+    public ResponseEntity<ProductDTO> save(@RequestBody ProductDTO productDTO){
+        ProductDTO dto = productService.save(productDTO);
+        dto.add(
+                linkTo(
+                    methodOn(ProductResource.class)
+                        .findById(dto.getId())
+                ).withSelfRel());
+
+        return ResponseEntity.ok(dto);
+    }
+
+    @RequestMapping(
+            method = RequestMethod.PUT,
+            produces = {"application/json", "application/xml", "application/x-yaml"},
+            consumes = {"application/json", "application/xml", "application/x-yaml"}
+    )
+    public ResponseEntity<ProductDTO> update(@RequestBody ProductDTO productDTO){
+        ProductDTO dto = productService.save(productDTO);
+        dto.add(
+                linkTo(
+                    methodOn(ProductResource.class)
+                        .findById(dto.getId())
+                ).withSelfRel());
+
+        return ResponseEntity.ok(dto);
+    }
+
+    @RequestMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id){
+        productService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }
