@@ -17,8 +17,9 @@ spring:
   jmx:
     enabled: false
   datasource:
-    url: jdbc:mariadb://localhost:3306/ms-crud-v2?usesSL=false
-    username: study
-    password: 123
+#    url: jdbc:mariadb://localhost:3306/ms-crud-v2?usesSL=false
+    url: jdbc:mariadb://${HOST_DB:localhost}:${DB_PORT:3306}/${DB_NAME:crud-product}
+    username: ${DB_USER:study}
+    password: ${DB_PASS:123}
     driver-class-name: org.mariadb.jdbc.Driver
 
