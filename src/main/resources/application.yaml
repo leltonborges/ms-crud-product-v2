@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: app-crud
+server:
+  address: 9000
