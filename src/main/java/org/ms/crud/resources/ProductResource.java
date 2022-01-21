@@ -11,6 +11,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +32,9 @@ public class ProductResource {
 
     @RequestMapping(method = RequestMethod.GET,
             value = "/{id}",
-            produces = {"application/json", "application/xm", "application/x-yaml"}
+            produces = {MediaType.APPLICATION_JSON_VALUE,
+                    MediaType.APPLICATION_XML_VALUE,
+                    MediaType.APPLICATION_FORM_URLENCODED_VALUE}
     )
     public ResponseEntity<ProductDTO> findById(@PathVariable("id") Long id){
         ProductDTO dtoReturn = productService.findById(id);
@@ -40,9 +44,11 @@ public class ProductResource {
     }
 
     @RequestMapping(method = RequestMethod.GET,
-            value = "/{id}",
-            produces = {"application/json", "application/xm", "application/x-yaml"}
+            produces = {MediaType.APPLICATION_JSON_VALUE,
+                    MediaType.APPLICATION_XML_VALUE,
+                    MediaType.APPLICATION_FORM_URLENCODED_VALUE}
     )
+    @ResponseBody
     public ResponseEntity<PagedModel<EntityModel<ProductDTO>>> findAll(
             @RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "limit", defaultValue = "12") Integer limit,
@@ -62,8 +68,12 @@ public class ProductResource {
 
     @RequestMapping(
             method = RequestMethod.POST,
-            produces = {"application/json", "application/xml", "application/x-yaml"},
-            consumes = {"application/json", "application/xml", "application/x-yaml"}
+            produces = {MediaType.APPLICATION_JSON_VALUE,
+                    MediaType.APPLICATION_XML_VALUE,
+                    MediaType.APPLICATION_FORM_URLENCODED_VALUE},
+            consumes = {MediaType.APPLICATION_JSON_VALUE,
+                    MediaType.APPLICATION_XML_VALUE,
+                    MediaType.APPLICATION_FORM_URLENCODED_VALUE}
     )
     public ResponseEntity<ProductDTO> save(@RequestBody ProductDTO productDTO){
         ProductDTO dto = productService.save(productDTO);
@@ -73,13 +83,17 @@ public class ProductResource {
                         .findById(dto.getId())
                 ).withSelfRel());
 
-        return ResponseEntity.ok(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(dto);
     }
 
     @RequestMapping(
             method = RequestMethod.PUT,
-            produces = {"application/json", "application/xml", "application/x-yaml"},
-            consumes = {"application/json", "application/xml", "application/x-yaml"}
+            produces = {MediaType.APPLICATION_JSON_VALUE,
+                    MediaType.APPLICATION_XML_VALUE,
+                    MediaType.APPLICATION_FORM_URLENCODED_VALUE},
+            consumes = {MediaType.APPLICATION_JSON_VALUE,
+                    MediaType.APPLICATION_XML_VALUE,
+                    MediaType.APPLICATION_FORM_URLENCODED_VALUE}
     )
     public ResponseEntity<ProductDTO> update(@RequestBody ProductDTO productDTO){
         ProductDTO dto = productService.save(productDTO);
@@ -92,7 +106,7 @@ public class ProductResource {
         return ResponseEntity.ok(dto);
     }
 
-    @RequestMapping(value = "/{id}")
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> delete(@PathVariable("id") Long id){
         productService.deleteById(id);
         return ResponseEntity.noContent().build();

@@ -1,7 +1,9 @@
 package org.ms.crud.dtos;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.ms.crud.entities.Product;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 public final class ProductDTO extends RepresentationModel<ProductDTO> implements Serializable {
     @Serial
@@ -23,10 +27,10 @@ public final class ProductDTO extends RepresentationModel<ProductDTO> implements
     @Autowired
     private static ModelMapper mapper;
 
-    private final Long id;
-    private final @NotBlank String name;
-    private final @NotBlank @Min(1) Integer stock;
-    private final @Min(1) BigDecimal price;
+    private Long id;
+    private @NotBlank String name;
+    private @NotBlank @Min(1) Integer stock;
+    private @Min(1) BigDecimal price;
 
     public Long id() {
         return id;
@@ -45,7 +49,7 @@ public final class ProductDTO extends RepresentationModel<ProductDTO> implements
     }
 
 
-    public static ProductDTO fromProductDTO(Product product){
+    public static ProductDTO fromProductDTO(Product product) {
         return mapper.map(product, ProductDTO.class);
     }
 }

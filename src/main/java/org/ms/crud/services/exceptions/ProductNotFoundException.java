@@ -14,4 +14,8 @@ public class ProductNotFoundException extends  RuntimeException implements Seria
     public ProductNotFoundException(String message) {
         super(message);
     }
+
+    public ProductNotFoundException(String message, Throwable throwable) {
+        super(message, throwable);
+    }
 }
