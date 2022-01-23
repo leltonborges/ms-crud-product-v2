@@ -13,7 +13,7 @@ spring:
         format_sql: true
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
   jmx:
     enabled: false
   datasource:
@@ -24,7 +24,7 @@ spring:
     driver-class-name: org.mariadb.jdbc.Driver
   rabbitmq:
     host: localhost
-    port: 5762
+    port: 5672
     username: admin
     password: admin
 

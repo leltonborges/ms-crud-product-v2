@@ -20,7 +20,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public final class ProductDTO extends RepresentationModel<ProductDTO> implements Serializable {
+public class ProductDTO extends RepresentationModel<ProductDTO> implements Serializable {
     @Serial
     private static final long serialVersionUID = -2572502890187627888L;
 
